@@ -1,9 +1,11 @@
 #!/bin/bash
 
+cbig_scrna_config.ini
+
 declare -A THREADS_ARRAY
 declare -A  WALLTIME_ARRAY
 declare -A  MEM_ARRAY
-source $OUTPUT_DIR/job_info/configs/scrnabox_config.ini
+source $OUTPUT_DIR/job_info/configs/cbig_scrna_config.ini
 source $OUTPUT_DIR/job_info/.tmp/temp_config.ini
 source $PIPELINE_HOME/tools/utils.sh
 

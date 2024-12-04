@@ -42,6 +42,7 @@ par_include_introns="no"
 
 ###################################################################################
 # CellRanger counts pipeline parameters - optional parameters
+# To implement these parameters, make sure to uncomment the corresponding line.
 ##################################################################################
 
 ## Minimum number of bases to retain for R1 sequence of gene expression assay. If you want to use this parameter uncomment the line below and define your par_r1_length.

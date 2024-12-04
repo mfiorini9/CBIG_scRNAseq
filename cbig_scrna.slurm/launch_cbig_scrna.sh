@@ -164,7 +164,7 @@ if [[ ${MODE0[@]} == 0 ]]; then
             mkdir -p $OUTPUT_DIR/job_info/.tmp
         fi
         touch $JOB_OUTPUT_DIR/summary_report.txt
-        cp $PIPELINE_HOME/scrna/configs/scrnabox_config.ini $OUTPUT_DIR/job_info/configs/
+        cp $PIPELINE_HOME/scrna/configs/cbig_scrna_config.ini $OUTPUT_DIR/job_info/configs/
         cp $PIPELINE_HOME/scrna/pars/* $OUTPUT_DIR/job_info/parameters/
     else
      echo "NOTE: the pipeline is using the existing config file and parameters."
@@ -179,7 +179,7 @@ if [[ ${MODE0[@]} == 0 ]]; then
         mkdir -p $OUTPUT_DIR/job_info/.tmp                
         fi
         touch $JOB_OUTPUT_DIR/summary_report.txt
-        cp $PIPELINE_HOME/scrna/configs/scrnabox_config.ini $OUTPUT_DIR/job_info/configs/
+        cp $PIPELINE_HOME/scrna/configs/cbig_scrna_config.ini $OUTPUT_DIR/job_info/configs/
         cp $PIPELINE_HOME/scrna/pars/* $OUTPUT_DIR/job_info/parameters/
   fi
   if [[   ${SINFO}  =~  T ]]; then
@@ -206,7 +206,7 @@ fi
 declare -A THREADS_ARRAY
 declare -A  WALLTIME_ARRAY
 declare -A  MEM_ARRAY
-source $OUTPUT_DIR/job_info/configs/scrnabox_config.ini
+source $OUTPUT_DIR/job_info/configs/cbig_scrna_config.ini
 
 export JOB_OUTPUT_DIR=$OUTPUT_DIR/job_info
 export EXPECTED_DONE_FILES=$JOB_OUTPUT_DIR/summary_report.txt

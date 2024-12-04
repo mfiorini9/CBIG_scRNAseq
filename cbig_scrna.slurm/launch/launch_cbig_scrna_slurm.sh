@@ -1,7 +1,5 @@
 #!/bin/bash
 
-cbig_scrna_config.ini
-
 declare -A THREADS_ARRAY
 declare -A  WALLTIME_ARRAY
 declare -A  MEM_ARRAY

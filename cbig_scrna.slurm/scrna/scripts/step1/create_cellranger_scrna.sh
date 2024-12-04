@@ -49,7 +49,7 @@ done
 [[ -z \${RUN_NAME} ]] && echo "error: run name must be specified with -r or --run_name" && failure=1
 [[ \$failure -eq 1 ]] && echo "ERRORS FOUND. Exiting" && exit 42
 
-source \$OUTPUT_DIR/job_info/.tmp/step1_par.txt
+source \$OUTPUT_DIR/job_info/.tmp/parameters.txt
 source \$OUTPUT_DIR/job_info/.tmp/temp_config.ini
 
 LIBRARY=\${LIBRARY:-./library.csv}

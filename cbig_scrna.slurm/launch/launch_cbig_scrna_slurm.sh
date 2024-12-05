@@ -135,21 +135,21 @@ if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  2 ]]  ; then
   export THREADS=$THREADS
   export WALLTIME=$WALLTIME
   export MEM=$MEM
-  if [  -d $OUTPUT_DIR/step2/objs2 ]; then 
-    rm -rf  $OUTPUT_DIR/step2/objs2 ; mkdir -p $OUTPUT_DIR/step2/objs2 &
-  else
-    mkdir -p $OUTPUT_DIR/step2/objs2 &
-  fi 
-  if [  -d $OUTPUT_DIR/step2/figs2 ]; then  
-    rm -rf  $OUTPUT_DIR/step2/figs2 ; mkdir -p $OUTPUT_DIR/step2/figs2  &
-    else 
-    mkdir -p $OUTPUT_DIR/step2/figs2 
-  fi
-  if [  -d $OUTPUT_DIR/step2/info2 ]; then    
-    rm -rf  $OUTPUT_DIR/step2/info2 ; mkdir -p $OUTPUT_DIR/step2/info2 &  
-    else 
-    mkdir -p $OUTPUT_DIR/step2/info2   
-  fi
+  #if [  -d $OUTPUT_DIR/step2/objs2 ]; then 
+  #  rm -rf  $OUTPUT_DIR/step2/objs2 ; mkdir -p $OUTPUT_DIR/step2/objs2 &
+  #else
+  #  mkdir -p $OUTPUT_DIR/step2/objs2 &
+  #fi 
+  #if [  -d $OUTPUT_DIR/step2/figs2 ]; then  
+  #  rm -rf  $OUTPUT_DIR/step2/figs2 ; mkdir -p $OUTPUT_DIR/step2/figs2  &
+  #  else 
+  #  mkdir -p $OUTPUT_DIR/step2/figs2 
+  #fi
+  #if [  -d $OUTPUT_DIR/step2/info2 ]; then    
+  #  rm -rf  $OUTPUT_DIR/step2/info2 ; mkdir -p $OUTPUT_DIR/step2/info2 &  
+  #  else 
+  #  mkdir -p $OUTPUT_DIR/step2/info2   
+  #fi
 fi 
 
 if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  2 ]]  &&  [[  ${MODE0[@]} =~ 1 ]] ; then

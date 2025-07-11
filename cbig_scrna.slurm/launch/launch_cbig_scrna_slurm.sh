@@ -15,15 +15,13 @@ else
   MODE0=$MODE
 fi
 
-
-export QUEUE=$QUEUE  
 # ===============================================
 # STEP 1: 
 # ===============================================
 #
 STEP=step_1
 
-if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  1  ]]; then
+if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  1  ]]; then  
   export ACCOUNT=$ACCOUNT
   if [ ! -d $OUTPUT_DIR/step1 ]; then 
     mkdir -p $OUTPUT_DIR/step1 
@@ -105,6 +103,96 @@ SAMPLE_SIZE=`wc -l < ${OUTPUT_DIR}/job_info/.tmp/sample.list`
 
 
 # ===============================================
+# STEP 3 space ranger: 
+# ===============================================
+#
+STEP=step_3
+
+if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  3  ]]; then  
+  export ACCOUNT=$ACCOUNT
+  if [ ! -d $OUTPUT_DIR/step3 ]; then 
+    mkdir -p $OUTPUT_DIR/step3 
+  fi
+  step3_par_auto=`grep 'par_automated_library_prep_spaceranger=' ${OUTPUT_DIR}/job_info/parameters/parameters.txt`
+  step3_par_auto1=`echo ${step3_par_auto//[[:blank:]]/} | tr 'A-Z' 'a-z'`
+  if [[ "${step3_par_auto1}" == "par_automated_library_prep_spaceranger=\"yes\"" ]]; then
+        module load r/$R_VERSION 
+        Rscript ${PIPELINE_HOME}/scrna/scripts/step3/scrna_step3_auto.R $OUTPUT_DIR  $R_LIB_PATH 
+        echo "Note: You are generating samples_info_spaceranger automatically"
+  fi
+
+  echo "OUTPUT_DIR: $OUTPUT_DIR"
+  echo "JOB_OUTPUT_DIR: $JOB_OUTPUT_DIR"
+  
+  cp -r  $OUTPUT_DIR/samples_info_spaceranger/* $OUTPUT_DIR/step3 
+  if  [ -f $JOB_OUTPUT_DIR/.tmp/sample.list ]; then rm $JOB_OUTPUT_DIR/.tmp/sample.list; touch $JOB_OUTPUT_DIR/.tmp/sample.list ; else touch $JOB_OUTPUT_DIR/.tmp/sample.list; fi 
+  if  [ -f $JOB_OUTPUT_DIR/.tmp/sample_dir.list ]; then rm $JOB_OUTPUT_DIR/.tmp/sample_dir.list; touch $JOB_OUTPUT_DIR/.tmp/sample_dir.list ; else touch $JOB_OUTPUT_DIR/.tmp/sample_dir.list; fi  
+  if [ -f $OUTPUT_DIR/job_info/.tmp/parameters.txt ]; then
+    rm $OUTPUT_DIR/job_info/.tmp/parameters.txt
+  fi
+  
+  grep "par_ref_dir_grch_spaceranger=" $OUTPUT_DIR/job_info/parameters/parameters.txt | sed 's/\"//g' | sed "s/'//g" | sed "s/[[:blank:]]//g" > $OUTPUT_DIR/job_info/.tmp/parameters.txt
+  arr=(par_fastqs_spaceranger par_image_spaceranger par_slide_spaceranger par_slidefile_spaceranger par_area_spaceranger par_localcores_spaceranger par_localmem_spaceranger ) 
+  for item in ${arr[@]}; do
+      grep ${item}=  $OUTPUT_DIR/job_info/parameters/parameters.txt | sed 's/\"//g' | sed "s/'//g" | sed "s/[[:blank:]]//g" >> $OUTPUT_DIR/job_info/.tmp/parameters.txt
+  done
+
+  search_dir=${OUTPUT_DIR}/step3
+  for entry in "$search_dir"/*
+  do
+    echo "$entry" >> ${OUTPUT_DIR}/job_info/.tmp/sample_dir.list
+    echo $(basename  "$entry") >> ${OUTPUT_DIR}/job_info/.tmp/sample.list
+  done
+  
+  source $OUTPUT_DIR/job_info/.tmp/parameters.txt
+  bash ${PIPELINE_HOME}/scrna/scripts/step3/create_spaceranger_scrna.sh $OUTPUT_DIR/job_info/.tmp/ scrna_spaceranger.slurm.sh $OUTPUT_DIR/job_info/.tmp/parameters.txt
+
+  while read item
+  do
+    cp ${PIPELINE_HOME}/scrna/scripts/step3/slurm.template $item
+    sed -i $item/slurm.template -e 's/account0/'$ACCOUNT'/'
+    cp $OUTPUT_DIR/job_info/.tmp/scrna_spaceranger.slurm.sh $item
+  done < ${OUTPUT_DIR}/job_info/.tmp/sample_dir.list
+
+  while read item
+  do
+      cd ${item}; bash  ${item}/scrna_spaceranger.slurm.sh -r ouput_folder &
+  done < ${OUTPUT_DIR}/job_info/.tmp/sample_dir.list
+
+  wait
+  # echo $TIMESTAMP  >> $EXPECTED_DONE_FILES
+  echo -e  "-------------------------------------------" $VERSION >> $EXPECTED_DONE_FILES  
+  echo -e  "--------Job submitted using pipeline-------" $VERSION >> $EXPECTED_DONE_FILES
+  echo "-----------------------------------------------------------"  >> $EXPECTED_DONE_FILES
+  echo "step 3  submited " >> $EXPECTED_DONE_FILES
+  echo "-------------------------------------------" >> $EXPECTED_DONE_FILES
+  echo "The Output is under ${OUTPUT_DIR}/step3/" >> $EXPECTED_DONE_FILES
+fi 
+
+# ===============================================
+# ===============================================
+
+if  [ ! -f $JOB_OUTPUT_DIR/.tmp/sample.list ]; then
+    search_dir=${OUTPUT_DIR}/step3
+    for entry in "$search_dir"/*
+    do
+      echo $(basename  "$entry") >> ${OUTPUT_DIR}/job_info/.tmp/sample.list
+    done
+fi
+
+
+if  [ ! -f $JOB_OUTPUT_DIR/.tmp/sample_dir.list ]; then
+    search_dir=${OUTPUT_DIR}/step3
+    for entry in "$search_dir"/*
+    do
+      echo "$entry" >> ${OUTPUT_DIR}/job_info/.tmp/sample_dir.list
+    done
+fi 
+
+SAMPLE_SIZE=`wc -l < ${OUTPUT_DIR}/job_info/.tmp/sample.list`
+
+
+# ===============================================
 # STEP 2:
 # ===============================================
 #
@@ -135,21 +223,6 @@ if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  2 ]]  ; then
   export THREADS=$THREADS
   export WALLTIME=$WALLTIME
   export MEM=$MEM
-  #if [  -d $OUTPUT_DIR/step2/objs2 ]; then 
-  #  rm -rf  $OUTPUT_DIR/step2/objs2 ; mkdir -p $OUTPUT_DIR/step2/objs2 &
-  #else
-  #  mkdir -p $OUTPUT_DIR/step2/objs2 &
-  #fi 
-  #if [  -d $OUTPUT_DIR/step2/figs2 ]; then  
-  #  rm -rf  $OUTPUT_DIR/step2/figs2 ; mkdir -p $OUTPUT_DIR/step2/figs2  &
-  #  else 
-  #  mkdir -p $OUTPUT_DIR/step2/figs2 
-  #fi
-  #if [  -d $OUTPUT_DIR/step2/info2 ]; then    
-  #  rm -rf  $OUTPUT_DIR/step2/info2 ; mkdir -p $OUTPUT_DIR/step2/info2 &  
-  #  else 
-  #  mkdir -p $OUTPUT_DIR/step2/info2   
-  #fi
 fi 
 
 if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  2 ]]  &&  [[  ${MODE0[@]} =~ 1 ]] ; then
@@ -203,6 +276,92 @@ elif [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  2  ]]  &&  [[  ${MODE0[@]} !
   # cat  $OUTPUT_DIR/job_info/parameters/step2_par.txt >> $EXPECTED_DONE_FILES
   echo "-------------------------------------------" >> $EXPECTED_DONE_FILES
   echo "The output is under ${OUTPUT_DIR}/step2" >> $EXPECTED_DONE_FILES  
+fi 
+
+# ===============================================
+# STEP 4:
+# ===============================================
+#
+STEP=step_4
+
+if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  4 ]]  ; then
+  echo -e "\n\n-----------------------------------------------------------" >> $EXPECTED_DONE_FILES
+  echo -e  "--------Job submitted using pipeline version $VERSION--------"  >> $EXPECTED_DONE_FILES
+  echo "-----------------------------------------------------------"  >> $EXPECTED_DONE_FILES
+  if [ -z "$SAMPLE_SIZE" ]; then
+    SAMPLE_SIZE=4
+  fi
+  if [ -z "${THREADS_ARRAY[$STEP]}" ]; then
+      THREADS=$((SAMPLE_SIZE*4)) 
+  else
+      THREADS=${THREADS_ARRAY[$STEP]}
+  fi
+  if [ -z "${MEM_ARRAY[$STEP]}" ]; then
+      MEM=$((SAMPLE_SIZE*4))g 
+  else 
+      MEM=${MEM_ARRAY[$STEP]}
+  fi
+  if [ -z "${WALLTIME_ARRAY[$STEP]}" ]; then
+      WALLTIME=$((SAMPLE_SIZE*80)) 
+  else
+      WALLTIME=${WALLTIME_ARRAY[$STEP]}
+  fi
+  export THREADS=$THREADS
+  export WALLTIME=$WALLTIME
+  export MEM=$MEM
+fi 
+
+if [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  4 ]]  &&  [[  ${MODE0[@]} =~ 3 ]] ; then
+  # echo $TIMESTAMP  >> $EXPECTED_DONE_FILES
+  # echo "Done using pipeline" $VERSION >> $EXPECTED_DONE_FILES
+  # echo "-----------------------------------------------------------"  >> $EXPECTED_DONE_FILES
+  echo "STEP 4 submitted following step 3"  >> $EXPECTED_DONE_FILES
+  step_4="$QUEUE -A $ACCOUNT  \
+    --ntasks-per-node=${THREADS} \
+    --mem=${MEM} \
+    --time=${WALLTIME} \
+    --job-name $STEP \
+    $DEPEND_CELLRANGER \
+    --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},PYTHON_StdEnv=${PYTHON_StdEnv},PYTHON_VERSION=${PYTHON_VERSION},ARROW_VERSION=${ARROW_VERSION},PYTHON_LIB_PATH=${PYTHON_LIB_PATH},SCRNA_METHOD=${SCRNA_METHOD},QUEUE=${QUEUE} \
+    --output $JOB_OUTPUT_DIR/logs/%x.o%j \
+    $PIPELINE_HOME/scrna/scripts/step4/pipeline_step4.sh"
+  step_4=$($step_4 | grep -oP "\d+")
+  echo "STEP 4: $step_4 is submitted"
+  echo "THREADS: ${THREADS} " >> $EXPECTED_DONE_FILES
+  echo "WALLTIME: ${WALLTIME} " >> $EXPECTED_DONE_FILES
+  echo "MEM: ${MEM} " >> $EXPECTED_DONE_FILES  
+  echo "[Q] STEP 4        : $step_4 " >> $EXPECTED_DONE_FILES
+  DEPEND_step_4="--dependency=afterok:$step_4"; echo $DEPEND_step_4
+  echo_general="STEP 4: Job Number:$step_4"; echo -e $echo_general
+  # echo -e "\n------Parameters used to run this step-----" >> $EXPECTED_DONE_FILES
+  # cat  $OUTPUT_DIR/job_info/parameters/step4_par.txt >> $EXPECTED_DONE_FILES
+  echo "-------------------------------------------" >> $EXPECTED_DONE_FILES
+  echo "The result is under ${OUTPUT_DIR}/step4" >> $EXPECTED_DONE_FILES
+elif [[ $QUEUE =~ sbatch ]] && [[  ${MODE0[@]}  =~  4  ]]  &&  [[  ${MODE0[@]} != 3 ]]; then
+  # echo "just step 4 at" $TIMESTAMP >> $EXPECTED_DONE_FILES
+  # echo $TIMESTAMP  >> $EXPECTED_DONE_FILES
+  # echo "Done using pipeline" $VERSION >> $EXPECTED_DONE_FILES
+  # echo "-----------------------------------------------------------"  >> $EXPECTED_DONE_FILES
+  echo "STEP 4 submitted (not dependent on other job) "  >> $EXPECTED_DONE_FILES
+  step_4="$QUEUE -A $ACCOUNT  \
+    --ntasks-per-node=${THREADS} \
+    --mem=${MEM} \
+    --time=${WALLTIME} \
+    --job-name $STEP \
+    --export OUTPUT_DIR=${OUTPUT_DIR},PIPELINE_HOME=${PIPELINE_HOME},R_LIB_PATH=${R_LIB_PATH},R_VERSION=${R_VERSION},PYTHON_StdEnv=${PYTHON_StdEnv},PYTHON_VERSION=${PYTHON_VERSION},ARROW_VERSION=${ARROW_VERSION},PYTHON_LIB_PATH=${PYTHON_LIB_PATH},SCRNA_METHOD=${SCRNA_METHOD},QUEUE=${QUEUE} \
+    --output $JOB_OUTPUT_DIR/logs/%x.o%j \
+    $PIPELINE_HOME/scrna/scripts/step4/pipeline_step4.sh"
+  step_4=$($step_4 | grep -oP "\d+")
+  echo "[Q] STEP 4         : $step_4 " >> $EXPECTED_DONE_FILES 
+  echo "THREADS: ${THREADS} " >> $EXPECTED_DONE_FILES
+  echo "WALLTIME: ${WALLTIME} " >> $EXPECTED_DONE_FILES
+  echo "MEM: ${MEM} " >> $EXPECTED_DONE_FILES  
+  DEPEND_step_4="--dependency=afterok:$step_4"
+  echo_general="STEP 4: Job Number:$step_4"; echo -e $echo_general
+  # echo -e "\n------Parameters used to run this step-----" >> $EXPECTED_DONE_FILES
+  # cat  $OUTPUT_DIR/job_info/parameters/step4_par.txt >> $EXPECTED_DONE_FILES
+  echo "-------------------------------------------" >> $EXPECTED_DONE_FILES
+  echo "The output is under ${OUTPUT_DIR}/step4" >> $EXPECTED_DONE_FILES  
 fi 
 
 exit 0

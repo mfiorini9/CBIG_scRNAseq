@@ -56,9 +56,11 @@ colnames(meta)[colnames(meta) == par_sample_id] <- "sample_id_CBIG"
 colnames(meta)[colnames(meta) == par_subject_id] <- "subect_id_CBIG"
 colnames(meta)[colnames(meta) == par_cell_type_main] <- "cell_type_main_CBIG"
 colnames(meta)[colnames(meta) == par_disease_status_main] <- "disease_status_main_CBIG"
+colnames(meta)[colnames(meta) == par_tissue] <- "tissue_CBIG"
+colnames(meta)[colnames(meta) == par_tissue_region] <- "tissue_region_CBIG"
 
 ## Reorder column names
-cbig_columns <- c("barcodes_CBIG", "sample_id_CBIG", "subect_id_CBIG", 
+cbig_columns <- c("barcodes_CBIG", "sample_id_CBIG", "subect_id_CBIG", "tissue_CBIG", "tissue_region_CBIG",
                   "cell_type_main_CBIG", "disease_status_main_CBIG")
 remaining_columns <- setdiff(colnames(meta), cbig_columns)
 meta <- meta[, c(cbig_columns, remaining_columns)]
@@ -188,11 +190,20 @@ write.table(barcodes, file = paste0(output_dir,'/final_outs/barcodes.tsv'), quot
 ## Export features.tsv file
 features <- rownames(seu_int)
 features <- data.frame(
-  Ensemble = features,
   Feature = features,
   Expression_Type = rep("Gene Expression", length(features))
 )
-write.table(features, file = paste0(output_dir,'/final_outs/features.tsv'), quote = FALSE, row.names = FALSE, col.names = FALSE)
+
+ensembl <- read.delim(paste0(list[1],   "/ouput_folder/outs/filtered_feature_bc_matrix/features.tsv.gz"), sep = '\t', header = FALSE)
+ensembl <- ensembl[,1:2]
+colnames(ensembl) <- c("Ensembl", "Feature")
+ensembl$Feature <- rownames(seu_int)
+
+features2 <- merge(features, ensembl, by = "Feature")
+features2_ordered <- features2[match(features$Feature, features2$Feature), ]
+features2_ordered <- features2_ordered %>% dplyr::select(Ensembl, Feature, Expression_Type)
+
+write.table(features2_ordered, file = paste0(output_dir,'/final_outs/features.tsv'), quote = FALSE, row.names = FALSE, col.names = FALSE)
 
 ## Export matrix.mtx
 matrix_data <- GetAssayData(object = seu_int, assay = "RNA", layer = "counts")
@@ -204,8 +215,39 @@ gzip(paste0(output_dir,'/final_outs/features.tsv'), remove = TRUE)
 gzip(paste0(output_dir,'/final_outs/matrix.mtx'), remove = TRUE)
 
 ## Test if the output files can be used to creat new seurat object
-sparse_matrix <- Seurat::Read10X(data.dir = paste0(output_dir,'/final_outs'))
-seu_int <- Seurat::CreateSeuratObject(counts = sparse_matrix, min.cells=0, min.features= 1, project = "merge")
+#sparse_matrix <- Seurat::Read10X(data.dir = paste0(output_dir,'/final_outs'))                                           ### TEMPPPPPPPP  
+#seu_int <- Seurat::CreateSeuratObject(counts = sparse_matrix, min.cells=0, min.features= 1, project = "merge")          ### TEMPPPPPPPP
+
+## Report step progress
+cat(stepp,"has completed. Total time:",as.numeric (Sys.time() - start_time, units = "mins"),"minutes\n")
+cat("#####################################\n")
+
+################################################################################
+# Convert to Scanpy test
+################################################################################
+## Initiate progress tracker 
+stepp="Create AnnData objects"
+cat("#####################################\n")
+cat(stepp, "started\n")
+start_time <- Sys.time()
+
+counts_mat <- as.matrix(seu_int@assays$RNA@layers$counts)
+colnames(counts_mat) <- colnames(seu_int)
+rownames(counts_mat) <- rownames(seu_int)
+assay.v5 <- CreateAssayObject(counts = counts_mat)
+
+seu_int_scanpy <- CreateSeuratObject(assay.v5)
+        
+df_meta <-data.frame(seu_int@meta.data)
+seu_int_scanpy <- AddMetaData(seu_int_scanpy, df_meta)
+        
+SaveH5Seurat(seu_int_scanpy, 
+        filename = paste0(output_dir,'/final_outs/seurat.h5Seurat'),
+        overwrite = T,
+        verbose = T
+        )
+
+Convert(paste0(output_dir,'/final_outs/seurat.h5Seurat'), dest = "h5ad", assay = "RNA")
 
 ## Report step progress
 cat(stepp,"has completed. Total time:",as.numeric (Sys.time() - start_time, units = "mins"),"minutes\n")

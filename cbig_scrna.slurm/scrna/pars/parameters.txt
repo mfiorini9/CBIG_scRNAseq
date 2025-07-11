@@ -42,7 +42,6 @@ par_include_introns="no"
 
 ###################################################################################
 # CellRanger counts pipeline parameters - optional parameters
-# To implement these parameters, make sure to uncomment the corresponding line.
 ##################################################################################
 
 ## Minimum number of bases to retain for R1 sequence of gene expression assay. If you want to use this parameter uncomment the line below and define your par_r1_length.
@@ -63,6 +62,64 @@ par_include_introns="no"
 ## If you want to skip the bam file generation, uncomment the parameter below.
 #par_no_bam="no"
 
+
+############################################
+############################################
+############################################
+############################################
+############################################
+############################################ Step 3: Spaceranger parameters
+
+#############################################################################################
+# Library preparation parameters
+############################################################################################
+
+## Do you want to perform automated library prep?
+par_automated_library_prep_spaceranger= "yes"
+
+## Path to the directory containing the FASTQ files for the experiment. This folder should only contain the FASTQ files for the experiment. 
+par_fastq_directory_spaceranger= "/path_to/fastqs"
+
+## List the sample names used in the FASTQ nomenclature
+par_sample_names_spaceranger= c("Sample1", "Sample2", "Sample3")
+
+## If you want to rename the samples, set par_rename_samples_spaceranger  to yes. 
+par_rename_samples_spaceranger= "yes"         
+
+## If you want to renames the samples (i.e. par_rename_samples_spaceranger= "yes"), list the new sample names in the same order as the old labels are listed in  par_sample_names.
+par_new_sample_names= c("NewSample1", "NewSample2", "NewSample3")
+
+## If your sequencing is paired-end, set the following to TRUE. Otherwise set it as FALSE.
+par_paired_end_seq= TRUE
+
+###################################################################################
+# SpaceRanger counts pipeline parameters - mandatory parameters
+##################################################################################
+
+## Path to reference genome
+par_ref_dir_grch_spaceranger='/cvmfs/soft.mugqic/CentOS6/genomes/species/Homo_sapiens.GRCh38/genome/10xGenomics/refdata-cellranger-GRCh38-3.0.0'
+
+## Path to the directory containing the FASTQ files for the experiment. This folder should only contain the FASTQ files for the experiment. 
+par_fastqs_spaceranger=
+
+## TEMP
+par_image_spaceranger=
+
+## TEMP
+par_slide_spaceranger=
+
+## TEMP
+par_slidefile_spaceranger=
+
+## TEMP
+par_area_spaceranger=C1
+
+## TEMP
+par_localcores_spaceranger=16
+
+## TEMP
+par_localmem_spaceranger=10
+
 ############################################
 ############################################
 ############################################
@@ -82,8 +139,50 @@ par_sample_id = ""
 ## Column in the author-provided metadata that describes the identifiers of the subjects in the study
 par_subject_id = ""
 
+## Column in the author-provided metadata that describes the tissue type
+par_tissue = ""
+
+## Column in the author-provided metadata that describes the tissue region (e.g., midbrain)
+par_tissue_region = ""
+
 ## Column in the author-provided metadata that describes the main annotated cell types
 par_cell_type_main = ""
 
 ## Column in the author-provided metadata that describes the disease status of the subjects in the study
 par_disease_status_main = ""
+
+
+############################################
+############################################
+############################################
+############################################
+############################################
+############################################ Step 4: Generate unified Seurat object parameters
+
+## Temporary paramete
+par_include_metadata_spatial = "no"   ####### TEMP
+
+## Location of the author-provided metadata file
+par_meta_data_spatial = "/home/fiorini9/scratch/CBIG_smajic/pipeline_test/out_dir_spaceranger/metadata_temp.csv"
+
+## Column in the author-provided metadata that describes the samples in the study
+par_barcodes_spatial = ""
+
+## Column in the author-provided metadata that describes the samples in the study
+par_sample_id_spatial = ""
+
+## Column in the author-provided metadata that describes the identifiers of the subjects in the study
+par_subject_id_spatial = ""
+
+## Column in the author-provided metadata that describes the tissue type
+par_tissue_spatial = ""
+
+## Column in the author-provided metadata that describes the tissue region (e.g., midbrain)
+par_tissue_region_spatial = ""
+
+## Column in the author-provided metadata that describes the main annotated cell types
+par_cell_type_main_spatial = ""
+
+## Column in the author-provided metadata that describes the disease status of the subjects in the study
+par_disease_status_main_spatial = ""
+

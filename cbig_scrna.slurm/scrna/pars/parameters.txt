@@ -100,19 +100,19 @@ par_paired_end_seq_spaceranger= TRUE
 par_ref_dir_grch_spaceranger='/cvmfs/soft.mugqic/CentOS6/genomes/species/Homo_sapiens.GRCh38/genome/10xGenomics/refdata-cellranger-GRCh38-3.0.0'
 
 ## Path to the directory containing the FASTQ files for the experiment. This folder should only contain the FASTQ files for the experiment. 
-par_fastqs_spaceranger=
+par_fastqs_spaceranger= "/path_to/fastqs"
 
 ## TEMP
-par_image_spaceranger=
+par_image_spaceranger= "/path_to/image_directory"
 
 ## TEMP
-par_slide_spaceranger=
+par_slide_spaceranger="temp"
 
 ## TEMP
-par_slidefile_spaceranger=
+par_slidefile_spaceranger="temp"
 
 ## TEMP
-par_area_spaceranger=C1
+par_area_spaceranger="C1"
 
 ## TEMP
 par_localcores_spaceranger=16

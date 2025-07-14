@@ -87,10 +87,10 @@ par_sample_names_spaceranger= c("Sample1", "Sample2", "Sample3")
 par_rename_samples_spaceranger= "yes"         
 
 ## If you want to renames the samples (i.e. par_rename_samples_spaceranger= "yes"), list the new sample names in the same order as the old labels are listed in  par_sample_names.
-par_new_sample_names= c("NewSample1", "NewSample2", "NewSample3")
+par_new_sample_names_spaceranger= c("NewSample1", "NewSample2", "NewSample3")
 
 ## If your sequencing is paired-end, set the following to TRUE. Otherwise set it as FALSE.
-par_paired_end_seq= TRUE
+par_paired_end_seq_spaceranger= TRUE
 
 ###################################################################################
 # SpaceRanger counts pipeline parameters - mandatory parameters

@@ -1,4 +1,4 @@
-site_name: CBIG scRNAseq piepline
+site_name: CBIG
 site_url: https://mfiorini9.github.io/
 nav:
     - Home: index.md

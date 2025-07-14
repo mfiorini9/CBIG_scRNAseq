@@ -1,0 +1,24 @@
+site_name: CBIG scRNAseq piepline
+site_url: https://mfiorini9.github.io/
+nav:
+    - Home: index.md
+    - The Ensemblex algorithm:
+        - 'Ensemblex algorithm overview': overview.md
+    - The Ensemblex Pipeline:
+        - 'Ensemblex pipeline overview' : overview_pipeline.md
+        - 'Installation' : installation.md
+        - 'Step 1: Set up' : Step0.md
+        - 'Step 2: Preparation of input files' : Step1.md
+        - 'Step 3: Genetic demultiplexing by constituent tools' : Step2.md
+        - 'Step 4: Application of Ensemblex' : Step3.md
+    - Documentation:    
+        - 'Execution parameters' : reference.md 
+        - 'Ensemblex outputs': outputs.md  
+    - Tutorial:
+        - 'Downloading data' : midbrain_download.md
+        - 'Ensemblex with prior genotype information' : Dataset1.md
+    - About:
+        - 'Help and Feedback': contributing.md
+        - 'Acknowledgement': Acknowledgement.md
+        - 'License': 'LICENSE.md'
+theme: readthedocs

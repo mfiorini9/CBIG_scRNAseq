@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://mfiorini9.github.io/SpatialRNAseq_Visium_HD/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Visium HD - CBIG</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Visium HD";
+        var mkdocs_page_input_path = "SpatialRNAseq_Visium_HD.md";
+        var mkdocs_page_url = "/SpatialRNAseq_Visium_HD/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> CBIG
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Initiative overview</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../background/">Background</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SPP/">Standardized processing protocols</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Available_data/">Available data</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Single-Cell RNA seq</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../scRNAseq_10X_Genomics/">10X Genomics</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../scRNAseq_ParseBio/">ParseBiosciences</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Spatial RNA seq</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Visium HD</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-0-pipeline-set-up">Step 0: Pipeline Set Up</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-1-run-spacerangerer">Step 1: Run SpaceRangerer</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-2-data-preprocessing-and-standardization">Step 2: Data Preprocessing and Standardization</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#data-upload-to-c-big">Data upload to C-BIG</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SpatialRNAseq_Visium/">Visium</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../contributing.md">Help and Feedback</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../Acknowledgement.md">Acknowledgement</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../LICENSE.md">License</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">CBIG</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
+          <li>Spatial RNA seq &raquo;</li>
+      <li class="breadcrumb-item active">Visium HD</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="spatial-rnaseq-pipeline-10x-genomics-visium-hd">Spatial RNAseq pipeline: 10X Genomics Visium HD</h1>
+<ul>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#step-0-pipeline-set-up">Step 0: Pipeline Set Up</a></li>
+<li><a href="#step-1-run-spaceranger">Step 1: Run SpaceRanger</a></li>
+<li><a href="#step-2-data-preprocessing-and-standardization">Step 2: Data Preprocessing and Standardization</a></li>
+<li><a href="#step-2-data-preprocessing-and-standardization">Data upload to C-BIG</a></li>
+</ul>
+<hr />
+<p>This tutorial provides step-by-step instructions for preparing Visium HD spatial RNA sequencing data from 10X Genomics for upload to the C-BIG repository.</p>
+<hr />
+<h2 id="installation">Installation</h2>
+<p>To use the C-BIG RNAseq proessing pipeline, the <a href="https://github.com/mfiorini9/CBIG_scRNAseq">CBIG_scRNAseq GitHub repository</a> must be cloned onto your high performance computing (HPC) system. Administrators using the Digital Research Alliance of Canada HPC system can skip this step, as the pipeline is already installed on Narval at <code>/lustre07/scratch/fiorini9/CBIG_pipe_07_11_25/CBIG_scRNAseq/cbig_scrna.slurm</code>. Note that this is a temporary location. </p>
+<p>To clone the repository run the following code:</p>
+<pre><code>mkdir /path/to/pipeline
+cd /path/to/pipeline
+git clone https://github.com/mfiorini9/CBIG_scRNAseq
+</code></pre>
+<p>After running the above code, the following files will be available in <code>/path/to/pipeline</code>:</p>
+<pre><code>CBIG_scRNAseq
+├── cbig_scrna.slurm
+│   ├── launch
+│   │   └── launch_cbig_scrna_slurm.sh
+│   ├── launch_cbig_scrna.sh
+│   ├── scrna
+│   │   ├── configs
+│   │   │   └── cbig_scrna_config.ini
+│   │   ├── pars
+│   │   │   └── parameters.txt
+│   │   └── scripts
+│   │       ├── step1
+│   │       │   ├── create_cellranger_scrna_local.sh
+│   │       │   ├── create_cellranger_scrna.sh
+│   │       │   ├── scrna_step1_auto.R
+│   │       │   └── slurm.template
+│   │       ├── step2
+│   │       │   ├── pipeline_step2.sh
+│   │       │   └── scrna_step2.R
+│   │       ├── step3
+│   │       │   ├── create_spaceranger_scrna.sh
+│   │       │   ├── scrna_step3_auto.R
+│   │       │   └── slurm.template
+│   │       └── step4
+│   │           ├── pipeline_step4.sh
+│   │           ├── spatial_rna_step4.py
+│   │           └── spatial_rna_step4.R
+│   ├── soft
+│   │   └── R
+│   │       ├── install_packages.R
+│   │       ├── install_packages.sh
+│   │       └── R.library.ini
+│   └── tools
+│       └── utils.sh
+├── LICENSE
+└── README.md
+</code></pre>
+<p><strong>Note:</strong> The repository only needs to be cloned onto an HPC system once and can be used to process any number of independent datasets.</p>
+<hr />
+<h2 id="step-0-pipeline-set-up">Step 0: Pipeline Set Up</h2>
+<p>After installation, a working directory and a pipeline instance specific to the dataset being processed must be created. Step 0 initiates the pipeline and generates all necessary parameter and configuration files.</p>
+<p>To execute Step 0, run the following code:</p>
+<pre><code>mkdir /path/to/working/directory/Dataset1
+cd /path/to/working/directory/Dataset1
+
+PIPELINE_HOME=/path/to/pipeline/CBIG_scRNAseq/cbig_scrna.slurm
+PIPELINE_PWD=/path/to/working/directory/Dataset1
+
+cd $PIPELINE_PWD
+
+bash $PIPELINE_HOME/launch_cbig_scrna.sh \
+-d ${PIPELINE_PWD} \
+--steps 0 
+</code></pre>
+<p>After running the Step 0, the following files will be available in <code>/path/to/working/directory/Dataset1</code>:</p>
+<pre><code>Dataset1
+└── job_info
+    ├── configs
+    │   └── cbig_scrna_config.ini
+    ├── logs
+    │   └── step_3_spacerangerV1_Adult_Mouse_Brain_S5.log
+    ├── parameters
+    │   └── parameters.txt
+    └── summary_report.txt
+</code></pre>
+<ul>
+<li>The <code>configs/</code> directory contains a configuration file which allows users to specify their job allocations (memory, threads, and walltime) for each analytical step using the Slurm Workload Manager; </li>
+<li>The <code>logs/</code> directory records the events of each analytical step; </li>
+<li>The <code>parameters/</code> directory contains adjustable, step-specific text files which allow users to define the execution parameters for each analytical step. </li>
+</ul>
+<p><strong>Note:</strong> The text files can be opened and modified through nano, vim, or a file manager system like cyberduck. </p>
+<hr />
+<h2 id="step-1-run-spacerangerer">Step 1: Run SpaceRangerer</h2>
+<p>In Step 1, spatial gene expression matrices are generated from 10X Genomics FASTQ files provided by the original investigators using the SpaceRanger <em>counts</em> pipeline. </p>
+<p>The following parameters are adjustable for Step 1 of the spatial RNAseq Visium HD track (<code>/path/to/working/directory/Dataset1/job_info/parameters/parameters.txt</code>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Column name</th>
+<th style="text-align: left;">Default</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>par_automated_library_prep_spaceranger</strong></td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not to perform automated library prep. Alternatively, you may set this parameter to "no" and manually prepare the libraries.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>par_fastq_directory_spaceranger</strong></td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Path to directory containing the FASTQ files. This directory should only contain FASTQ files for the experiment.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>par_sample_names_spaceranger</strong></td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">The sample names used to name the FASTQ files according to CellRanger nomeclature.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>par_rename_sample_spacerangers</strong></td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not you want to rename your samples. These names will be used to identify cells in the processed data objects.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>par_new_sample_names_spaceranger</strong></td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">New sample names. Make sure they are defined in the same order as 'par_sample_names'.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>par_paired_end_seq_spaceranger</strong></td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Whether or not paired-end sequencing was performed.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>par_ref_dir_grch_spaceranger</strong></td>
+<td style="text-align: left;">/cvmfs/soft.mugqic/CentOS6/genomes/species/Homo_sapiens.GRCh38/genome/10xGenomics/refdata-cellranger-GRCh38-3.0.0</td>
+<td style="text-align: left;">Path to reference genome for FASTQ alignment. 10X Genomics reference genomes are available for download. For more information see the 10X Genomics documentation.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>par_fastqs_spaceranger</strong></td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Path to directory containing the FASTQ files. This directory should only contain FASTQ files for the experiment.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>par_image_spaceranger</strong></td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Path to the brightfield tissue image (.tif) for the corresponding tissue section.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>par_slide_spaceranger</strong></td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Identifier for the Visium slide used. This must match the slide ID printed on the physical slide and encoded in the .gpr file.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>par_slidefile_spaceranger</strong></td>
+<td style="text-align: left;">TEMP</td>
+<td style="text-align: left;">Path to the GenePix results (.gpr) file for the slide, which contains spatial barcode layout information. It's used to map tissue spots to spatial barcodes.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>par_area_spaceranger</strong></td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Indicates the capture area (i.e., section) of the slide being processed. Commonly labeled as A1, B1, C1, D1, etc. This must match the area used for imaging and sample preparation.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>par_localcores_spaceranger</strong></td>
+<td style="text-align: left;">16</td>
+<td style="text-align: left;">Number of CPU cores to use for the analysis.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>par_localmem_spaceranger=10</strong></td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">Amount of RAM (in GB) to allocate to the job.</td>
+</tr>
+</tbody>
+</table>
+<p>Given that SpaceRanger runs a user interface, it is recommended to run Step 1 in a <em>screen</em>, which will allow the the task to keep running if the connection to the HPC is broken. </p>
+<p>To execute Step 1, run the following code:</p>
+<pre><code>screen -S pipeline
+
+PIPELINE_HOME=/path/to/pipeline/CBIG_scRNAseq/cbig_scrna.slurm
+PIPELINE_PWD=/path/to/working/directory/Dataset1
+
+cd $PIPELINE_PWD
+
+bash $PIPELINE_HOME/launch_cbig_scrna.sh \
+-d ${PIPELINE_PWD} \
+--steps 3
+
+</code></pre>
+<p>The resulting output files are deposited into <code>/path/to/working/directory/Dataset1/step1</code>. The filtered expression matrix, features, and barcode files outputed by SpaceRanger are located in <code>/path/to/working/directory/Dataset1/step3/sample/ouput_folder/outs/filtered_feature_bc_matrix</code>.</p>
+<p><strong>Note:</strong> If SpaceRanger was successfull, it will display <em>Pipestance completed successfully!</em>. If this message is not displayed, you should check the error logs in <code>/path/to/working/directory/Dataset1/step3/sample/ouput_folder.log</code> and re-run Step 1.</p>
+<hr />
+<h2 id="step-2-data-preprocessing-and-standardization">Step 2: Data Preprocessing and Standardization</h2>
+<p>In Step 2, the spatial feature-barcode expression matrices are log-transformed and scaled using a standardized approach. Individual cells are filtered to retain only those barcodes specified in the metadata file provided by the original investigators. Metadata column names are standardized and appended to the count matrices. The processed data are saved as both Seurat and Scanpy objects.</p>
+<p>The following parameters are adjustable for Step 2 of the spatial RNAseq Visium HD track (<code>/path/to/working/directory/Dataset1/job_info/parameters/parameters.txt</code>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Column name</th>
+<th style="text-align: left;">Default</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>par_meta_data_spatial</strong></td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Path to investigator-provided metadata .csv file.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>par_barcodes_spatial</strong></td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Column name in the investigator-provided metadata file describing the cell barcodes.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>par_sample_id_spatial</strong></td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Column name in the investigator-provided metadata file describing the sample IDs.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>par_subject_id_spatial</strong></td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Column name in the investigator-provided metadata file describing the Subject IDs.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>par_tissue_spatial</strong></td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Column name in the investigator-provided metadata file describing the tissue type.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>par_tissue_region_spatial</strong></td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Column name in the investigator-provided metadata file describing the tissue region.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>par_cell_type_main_spatial</strong></td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Column name in the investigator-provided metadata file describing the main cell type.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>par_disease_status_main_spatial</strong></td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">Column name in the investigator-provided metadata file describing the disease status of the subject from which the cells were obtained.</td>
+</tr>
+</tbody>
+</table>
+<p>To execute Step 2, run the following code:</p>
+<pre><code>PIPELINE_HOME=/path/to/pipeline/CBIG_scRNAseq/cbig_scrna.slurm
+PIPELINE_PWD=/path/to/working/directory/Dataset1
+
+cd $PIPELINE_PWD
+
+bash $PIPELINE_HOME/launch_cbig_scrna.sh \
+-d ${PIPELINE_PWD} \
+--steps 4
+</code></pre>
+<p>After running the Step 2, the following files will be available in <code>/path/to/working/directory/Dataset1/step4</code>:</p>
+<pre><code>Dataset1
+└── job_info
+    ├── configs
+    │   └── cbig_scrna_config.ini
+    ├── logs
+    │   └── step_3_spacerangerV1_Adult_Mouse_Brain_S5.log
+    ├── parameters
+    │   └── parameters.txt
+    └── summary_report.txt
+</code></pre>
+<hr />
+<h2 id="data-upload-to-c-big">Data upload to C-BIG</h2>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../scRNAseq_ParseBio/" class="btn btn-neutral float-left" title="ParseBiosciences"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../SpatialRNAseq_Visium/" class="btn btn-neutral float-right" title="Visium">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../scRNAseq_ParseBio/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../SpatialRNAseq_Visium/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

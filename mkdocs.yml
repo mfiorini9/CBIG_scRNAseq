@@ -2,21 +2,16 @@ site_name: CBIG
 site_url: https://mfiorini9.github.io/
 nav:
     - Home: index.md
-    - The Ensemblex algorithm:
-        - 'Ensemblex algorithm overview': overview.md
-    - The Ensemblex Pipeline:
-        - 'Ensemblex pipeline overview' : overview_pipeline.md
-        - 'Installation' : installation.md
-        - 'Step 1: Set up' : Step0.md
-        - 'Step 2: Preparation of input files' : Step1.md
-        - 'Step 3: Genetic demultiplexing by constituent tools' : Step2.md
-        - 'Step 4: Application of Ensemblex' : Step3.md
-    - Documentation:    
-        - 'Execution parameters' : reference.md 
-        - 'Ensemblex outputs': outputs.md  
-    - Tutorial:
-        - 'Downloading data' : midbrain_download.md
-        - 'Ensemblex with prior genotype information' : Dataset1.md
+    - Initiative overview: 
+        - 'Background' : background.md
+        - 'Standardized processing protocols' : SPP.md
+        - 'Available data' : Available_data.md
+    - Single-Cell RNA seq:
+        - '10X Genomics' : scRNAseq_10X_Genomics.md
+        - 'ParseBiosciences' : scRNAseq_ParseBio.md
+    - Spatial RNA seq:     
+        - 'Visium HD' : SpatialRNAseq_Visium_HD.md 
+        - 'Visium' : SpatialRNAseq_Visium.md 
     - About:
         - 'Help and Feedback': contributing.md
         - 'Acknowledgement': Acknowledgement.md

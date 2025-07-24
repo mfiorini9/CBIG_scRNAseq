@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://mfiorini9.github.io/Available_data/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Available data - CBIG</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Available data";
+        var mkdocs_page_input_path = "Available_data.md";
+        var mkdocs_page_url = "/Available_data/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> CBIG
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Initiative overview</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../background/">Background</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SPP/">Standardized processing protocols</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Available data</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#fastq-files">FASTQ files</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#feature-barcode-expression-matrix">Feature-barcode expression matrix</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#seurat-and-scanpy-objects">Seurat and Scanpy objects</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#metadata">Metadata</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Single-Cell RNA seq</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../scRNAseq_10X_Genomics/">10X Genomics</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../scRNAseq_ParseBio/">ParseBiosciences</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Spatial RNA seq</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../SpatialRNAseq_Visium_HD/">Visium HD</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SpatialRNAseq_Visium/">Visium</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../contributing.md">Help and Feedback</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../Acknowledgement.md">Acknowledgement</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../LICENSE.md">License</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">CBIG</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
+          <li>Initiative overview &raquo;</li>
+      <li class="breadcrumb-item active">Available data</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="available-data">Available data</h1>
+<ul>
+<li><a href="#fastq-files">FASTQ files</a></li>
+<li><a href="#feature-barcode-expression-matrix">Feature-barcode expression matrix</a></li>
+<li><a href="#seurat-and-scanpy-objects">Seurat and Scanpy objects</a></li>
+<li><a href="#metadata">Metadata</a></li>
+</ul>
+<hr />
+<p>For each scRNAseq study hosted on C-BIG, we provide both raw and processed data at various stages of the processing pipeline. Specifically, each study includes the following:</p>
+<ol>
+<li>Raw FASTQ files for each sample (.fastq);</li>
+<li>A unified feature-barcode expression matrix (barcodes.tsv, features.tsv, matrix.mtx);</li>
+<li>A unified Seurat object (.RDS);</li>
+<li>A standardized metadata file provided by the authors (.csv)</li>
+</ol>
+<p>Ensuring the availability of multiple data types provides C-BIG users with the flexibility to choose the most appropriate data for their specific analytical needs. We further describe each data type in the subsequent sections. </p>
+<h2 id="fastq-files">FASTQ files</h2>
+<p>Independent FASTQ files for each sample obtained directly from the original investigators are uploaded to C-BIG. The FASTQ files contain raw sequence reads, which, in the context of scRNAseq, represent transcriptomic data from individual cells. The FASTQ files are published without modification; however, their naming is adjusted according to standard 10xGenomics nomenclature: </p>
+<pre><code>[Sample Name]_S1_L00[Lane Number]_[Read Type]_001.fastq.gz
+</code></pre>
+<p>Where <code>Read Type</code> is one of:</p>
+<ul>
+<li>R1: Read 1</li>
+<li>R2: Read 2</li>
+</ul>
+<p>For example, in a scRNAseq study involving two distinct samples sequenced using paired-end technology, where each sample represents a different individual—Parkinson1 and Control1—the following FASTQ files will be available:</p>
+<pre><code>Parkinson1
+├── Parkinson1_S1_L001_R1_001.fastq.gz
+└── Parkinson1_S1_L001_R2_001.fastq.gz
+
+Control1
+├── Control1_S1_L001_R1_001.fastq.gz
+└── Control1_S1_L001_R2_001.fastq.gz 
+</code></pre>
+<p>Raw FASTQ files are best suited for investigators aiming to replicate the original study’s findings and apply the exact processing methods described in the manuscript.</p>
+<h2 id="feature-barcode-expression-matrix">Feature-barcode expression matrix</h2>
+<p>A single feature-barcode expression matrix for each study is uploaded to C-BIG. This matrix consists of three files: barcodes.tsv, features.tsv, and matrix.mtx, which collectively map the read counts of specific genes (features) to individual cells (barcodes). The feature-barcode expression matrix is derived from the unified Seurat object generated using the standardized pipeline described above. Regardless of the number of samples or subjects included in the study, the following files will be available:</p>
+<ul>
+<li>barcodes.tsv.gz</li>
+<li>features.tsv.gz</li>
+<li>matrix.mtx.gz</li>
+</ul>
+<p>The feature-barcode expression matrix is best suited for investigators who wish to perform a comprehensive analysis of the data without the need to run the time-consuming and memory-intensive CellRanger counts pipeline. Additionally, the feature-barcode expression matrix can be imported into R for analysis using various single-cell frameworks, such as SingleCellExperiment, or into Scanpy in Python, depending on the user’s preference.</p>
+<h2 id="seurat-and-scanpy-objects">Seurat and Scanpy objects</h2>
+<p>A unified Seurat object in R Data Serialization format (RDS) obtained using the pipeline described above is uploaded to C-BIG. Seurat objects store all the data and metadata associated with scRNAseq analysis, including gene expression data and cell-level metadata. To maintain clarity and avoid ambiguity, we intentionally keep the uploaded Seurat object simple, including only the raw, normalized, and scaled RNA assays, as well as the author-provided metadata. This approach ensures that users have the flexibility to perform their own analyses—such as dimensionality reduction, clustering, and differential gene expression—without being constrained by predefined steps. Regardless of the number of samples or subjects included in the study, the following file will be available:</p>
+<ul>
+<li>seurat.RDS</li>
+<li>scanpy.h5ad</li>
+</ul>
+<p>The unified Seurat object is best suited for investigators familiar with R and the Seurat framework who wish to perform a comprehensive analysis of the data without the need to run the time-consuming and memory-intensive CellRanger counts pipeline.</p>
+<h2 id="metadata">Metadata</h2>
+<p>An author-provided metadata file for each scRNAseq study is uploaded to C-BIG. The metadata file is standardized to reduce confusion for external investigators, ensuring that essential cell-level information is provided for effective use of the data. Specifically, each metadata file will contain, at the very minimum, the following columns:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Column name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>barcodes_CBIG</strong></td>
+<td style="text-align: left;">Cell barcodes</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>orig.ident_CBIG</strong></td>
+<td style="text-align: left;">Sample identifiers matching those in the FASTQ nomenclature</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>nCount_RNA_CBIG</strong></td>
+<td style="text-align: left;">Number of RNA counts per cell when processed by the CBIG pipeline</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>nFeature_RNA_CBIG</strong></td>
+<td style="text-align: left;">Number of features expressed per cell when processed by the CBIG pipeline</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>sample_id_CBIG</strong></td>
+<td style="text-align: left;">Sample identifier</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>subect_id_CBIG</strong></td>
+<td style="text-align: left;">Subject identifier</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>cell_type_main_CBIG</strong></td>
+<td style="text-align: left;">Primary cell type annotation</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>disease_status_CBIG</strong></td>
+<td style="text-align: left;">Subject disease status</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tissue_CBIG</strong></td>
+<td style="text-align: left;">Tissue from which individuals cells derived</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../SPP/" class="btn btn-neutral float-left" title="Standardized processing protocols"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../scRNAseq_10X_Genomics/" class="btn btn-neutral float-right" title="10X Genomics">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../SPP/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../scRNAseq_10X_Genomics/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

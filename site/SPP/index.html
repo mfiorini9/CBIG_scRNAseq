@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://mfiorini9.github.io/SPP/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Standardized processing protocols - CBIG</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Standardized processing protocols";
+        var mkdocs_page_input_path = "SPP.md";
+        var mkdocs_page_url = "/SPP/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> CBIG
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Initiative overview</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../background/">Background</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Standardized processing protocols</a>
+    <ul class="current">
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Available_data/">Available data</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Single-Cell RNA seq</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../scRNAseq_10X_Genomics/">10X Genomics</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../scRNAseq_ParseBio/">ParseBiosciences</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Spatial RNA seq</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../SpatialRNAseq_Visium_HD/">Visium HD</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../SpatialRNAseq_Visium/">Visium</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../contributing.md">Help and Feedback</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../Acknowledgement.md">Acknowledgement</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../LICENSE.md">License</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">CBIG</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
+          <li>Initiative overview &raquo;</li>
+      <li class="breadcrumb-item active">Standardized processing protocols</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="standardized-processing-protocol">Standardized processing protocol</h1>
+<p>A general outline of the RNAseq processing pipelines for data uploaded to C-BIG is illustrated in Figure 1. All analytical steps are carried out using the scRNAbox pipeline (1) and require collaborative input from both the original investigators and the administrators (The NeuroBioinformatics Core). <br /></p>
+<hr />
+<p><img alt="Image" src="https://github.com/user-attachments/assets/b53f60b6-f6c3-447d-81d8-f6abad83d767" /></p>
+<p><strong>Figure 1. General workflow of standardized preprocessing framework.</strong> </p>
+<hr />
+<p>The pipeline begins with raw sequencing files in FASTQ format, obtained from commercial platforms such as 10xGenomics. Investigators looking to upload their data must send the sample-specific FASTQ files to the administrators. The sample-specific FASTQ files are processed to generate feature-barcode expression matrices with default parameters. Intronic reads are optionally retained depending on the author’s original protocol and the sequences are aligned to the GRCh38 reference genome. During this step, the sample-specific FASTQ files provided by the investigator are renamed to include descriptive sample identifiers, following the standard 10xGenomics nomenclature (for further details, see Available Data).</p>
+<p>The feature-barcode expression matrices are used to generate sample-specific Seurat (v5.1.0) objects. Seurat is an R-based package designed for the analysis and visualization of RNAseq data (2). Initially, a separate Seurat object is created for each sample. These individual Seurat objects undergo basic preprocessing steps, including log normalization and scaling. To ensure that the quality control thresholds match that of the original study, we filter the Seurat object to only retain barcodes in the author-provided metadata file. Upon processing the sample-specific Seurat objects, we generate a unified Seurat object that includes all samples in the study by merging the RNA counts layer. Finally, we add the author-provided metadata to the unified Seurat object. This unified Seurat object is made available on C-BIG and used to generate a single feature-barcode expression matrix describing all samples in the study, as well as a Scanpy (Python) object.</p>
+<p>The code is available on <a href="https://github.com/mfiorini9/CBIG_scRNAseq">GitHub</a>. </p>
+<hr />
+<p><strong>References</strong></p>
+<ol>
+<li>Thomas, Rhalena A., Michael R. Fiorini, Saeid Amiri, Edward A. Fon, and Sali MK Farhan. "ScRNAbox: empowering single-cell RNA sequencing on high performance computing systems." BMC bioinformatics 25, no. 1 (2024): 319.  <br /></li>
+<li>Hao, Yuhan, Tim Stuart, Madeline H. Kowalski, Saket Choudhary, Paul Hoffman, Austin Hartman, Avi Srivastava et al. "Dictionary learning for integrative, multimodal and scalable single-cell analysis." Nature biotechnology 42, no. 2 (2024): 293-304. <br /></li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../background/" class="btn btn-neutral float-left" title="Background"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Available_data/" class="btn btn-neutral float-right" title="Available data">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../background/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Available_data/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

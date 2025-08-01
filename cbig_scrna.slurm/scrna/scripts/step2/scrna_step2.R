@@ -30,9 +30,18 @@ r_lib_path=args[2]
 source(paste(output_dir,'/job_info/parameters/parameters.txt',sep="")) 
 
 ## Load R libraries
-.libPaths(r_lib_path)
-packages<-c('Seurat','ggplot2', 'dplyr', 'foreach', 'doParallel','Matrix', 'ggpubr', 'scCustomize', 'R.utils')
-invisible(lapply(packages, library, character.only = TRUE))
+#.libPaths(r_lib_path)
+#packages<-c('Seurat','ggplot2', 'dplyr', 'foreach', 'doParallel','Matrix', 'ggpubr', 'scCustomize', 'R.utils')
+#invisible(lapply(packages, library, character.only = TRUE))
+
+library(SeuratDisk, lib=r_lib_path)
+library(Seurat, lib=r_lib_path)
+library(dplyr, lib=r_lib_path)
+library(foreach, lib=r_lib_path)
+library(doParallel, lib=r_lib_path)
+library(Matrix, lib=r_lib_path)
+library(scCustomize, lib=r_lib_path)
+library(R.utils, lib=r_lib_path)
 
 ## Detect number of available cores
 numCores <- detectCores()

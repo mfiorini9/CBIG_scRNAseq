@@ -130,6 +130,7 @@ seu_list<-foreach (i=1:length(sample_name)) %do% {
     img@key <- paste0(sample_name[i], '_image' )
     img = img[colnames(x = seurat_object)] 
     seurat_object[['image']] = img  
+    seurat_object@meta.data$orig.ident = sample_name[i]
     
     nam <- paste("seurat_object", sample_name[i], sep = ".")
     assign(nam, seurat_object)
